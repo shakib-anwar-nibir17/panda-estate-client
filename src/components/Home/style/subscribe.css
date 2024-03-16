@@ -1,0 +1,24 @@
+.crossing-shapes::before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 200%;
+  top: 88%;
+  left: -20%;
+  opacity: 0.3;
+  background-color: #871515;
+  transform: rotate(10deg);
+  z-index: 2;
+}
+.crossing-shapes::after {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 200%;
+  top: 88%;
+  right: -20%;
+  opacity: 0.5;
+  background-color: #fd3636;
+  transform: rotate(-10deg);
+  z-index: 1;
+}
