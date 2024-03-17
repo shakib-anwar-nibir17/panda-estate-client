@@ -108,7 +108,7 @@ const RegisterForm = ({ register, setRegister }) => {
         className="py-2 px-5 mb-4 mx-auto mt-8 shadow-lg border rounded-md border-black block hover:bg-custom-red-400 hover:text-white"
       >
         {loading ? (
-          <div className="w-3 h-3 animate-[spin_1s_linear_infinite] rounded-full border-4 border-r-transparent border-l-transparent border-custom-main"></div>
+          <div className="w-4 h-4 animate-[spin_1s_linear_infinite] rounded-full border-4 border-r-transparent border-l-transparent border-custom-main"></div>
         ) : (
           "Create Account"
         )}

@@ -85,7 +85,7 @@ const Navbar = () => {
                     : "md:p-4 py-2 block hover:text-custom-red-400"
                 }
               >
-                SignUp
+                Login
               </NavLink>
             </li>
           </ul>
