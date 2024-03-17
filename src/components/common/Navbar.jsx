@@ -66,14 +66,14 @@ const Navbar = () => {
             </li>
             <li>
               <NavLink
-                to="/blogs"
+                to="/profile"
                 className={({ isActive }) =>
                   isActive
                     ? "md:p-4 py-2 block text-custom-red-500"
                     : "md:p-4 py-2 block hover:text-custom-red-400"
                 }
               >
-                Blogs
+                Profile
               </NavLink>
             </li>
             <li>

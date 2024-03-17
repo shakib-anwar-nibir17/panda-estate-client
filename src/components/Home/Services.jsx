@@ -7,8 +7,8 @@ const Services = () => {
           "url(https://www.toptal.com/designers/subtlepatterns/uploads/dot-grid.png)",
       }}
     >
-      <div className="grid grid-cols-1 md:lg:xl:grid-cols-3 group bg-white shadow-xl shadow-neutral-100 border ">
-        <div className="p-10 flex flex-col items-center text-center group md:lg:xl:border-r md:lg:xl:border-b hover:bg-slate-red-50 cursor-pointer">
+      <div className="grid grid-cols-1 md:lg:xl:grid-cols-3 group bg-white shadow-xl shadow-neutral-100 border">
+        <div className="p-10 flex flex-col items-center text-center group md:lg:xl:border-r md:lg:xl:border-b hover:bg-slate-50 cursor-pointer">
           <span className="p-5 rounded-full bg-custom-red-400 text-white shadow-lg shadow-red-200">
             <svg
               xmlns="http://www.w3.org/2000/svg"
