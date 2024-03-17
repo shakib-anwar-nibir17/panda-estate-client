@@ -18,7 +18,7 @@ export const CarouselMain = () => {
       {/* arrow */}
       <button
         onClick={nextSlider}
-        className="absolute flex justify-center items-center right-2 top-1/2 bg-white rounded-full z-50 w-6 h-6 md:w-8 md:h-8 bgWhite "
+        className="absolute flex justify-center items-center right-2 top-1/2 bg-white rounded-full z-50 w-6 h-6 md:w-8 md:h-8 bgWhite"
       >
         <svg
           viewBox="0 0 1024 1024"
@@ -35,7 +35,7 @@ export const CarouselMain = () => {
           ></g>
           <g id="SVGRepo_iconCarrier">
             <path
-              fill="#0095FF"
+              fill="#fd3636"
               d="M685.248 104.704a64 64 0 010 90.496L368.448 512l316.8 316.8a64 64 0 01-90.496 90.496L232.704 557.248a64 64 0 010-90.496l362.048-362.048a64 64 0 0190.496 0z"
             ></path>
           </g>
