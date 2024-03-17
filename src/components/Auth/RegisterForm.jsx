@@ -1,8 +1,65 @@
+/* eslint-disable no-unused-vars */
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 const RegisterForm = ({ register, setRegister }) => {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({});
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value,
+    });
+  };
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    try {
+      setLoading(true);
+      const res = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      console.log(data);
+      if (data.success === false) {
+        setLoading(false);
+        setError(data.message);
+        Swal.fire({
+          title: "Registration Error Encountered",
+          text: data.message,
+          icon: "error",
+        });
+        return;
+      }
+      setLoading(false);
+      setError(null);
+      Swal.fire({
+        title: "Registration Success",
+        text: "Welcome to Panda Estate",
+        icon: "success",
+      });
+      navigate("/");
+    } catch (error) {
+      setLoading(false);
+      Swal.fire({
+        title: "Registration Error Encountered",
+        text: error.message,
+        icon: "error",
+      });
+      setError(error.message);
+    }
+  };
+  console.log(formData);
   return (
     <form
+      onSubmit={handleRegister}
       className={`p-8 w-full ${
         register ? "lg:translate-x-0" : "lg:-translate-x-full hidden lg:block"
       } duration-500`}
@@ -13,37 +70,48 @@ const RegisterForm = ({ register, setRegister }) => {
           Name
         </label>
         <input
-          id="name"
+          id="username"
           type="name"
+          onChange={handleChange}
           placeholder="John Doe"
-          className="p-3 block w-full outline-none border rounded-md invalid:border-red-700 valid:border-black"
+          className="p-3 block w-full outline-none border rounded-md invalid:border-blue-700 valid:border-green-500"
+          required
         />
         <label htmlFor="u_email" className="block">
           Email
         </label>
         <input
-          id="u_email"
+          id="email"
           type="u_email"
+          onChange={handleChange}
           placeholder="example@example.com"
-          className="p-3 block w-full outline-none border rounded-md invalid:border-red-700 valid:border-black"
+          className="p-3 block w-full outline-none border rounded-md invalid:border-blue-700 valid:border-green-500"
+          required
         />
         <label htmlFor="u_password" className="block">
           Password
         </label>
         <input
-          id="u_password"
-          type="u_password"
+          id="password"
+          type="password"
+          onChange={handleChange}
           placeholder=".............."
           min={5}
-          className="p-3 block w-full outline-none border rounded-md invalid:border-red-700 valid:border-black"
+          className="p-3 block w-full outline-none border rounded-md invalid:border-blue-700 valid:border-green-500"
+          required
         />
       </div>
       {/* button type will be submit for handling form submission*/}
       <button
-        type="button"
+        disabled={loading}
+        type="submit"
         className="py-2 px-5 mb-4 mx-auto mt-8 shadow-lg border rounded-md border-black block hover:bg-custom-red-400 hover:text-white"
       >
-        Submit
+        {loading ? (
+          <div className="w-3 h-3 animate-[spin_1s_linear_infinite] rounded-full border-4 border-r-transparent border-l-transparent border-custom-main"></div>
+        ) : (
+          "Create Account"
+        )}
       </button>
       <p className="mb-3 text-center">
         Already have an account?
@@ -56,6 +124,7 @@ const RegisterForm = ({ register, setRegister }) => {
           Login
         </Link>
       </p>
+
       <hr />
       <button
         type="button"
