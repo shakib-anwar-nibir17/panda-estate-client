@@ -2,7 +2,7 @@ const Banner = () => {
   return (
     <>
       <div
-        className="relative h-screen w-full flex items-center justify-center text-center bg-cover bg-center"
+        className="relative h-screen w-full flex items-center justify-center bg-fixed text-center bg-cover bg-center"
         style={{
           backgroundImage:
             "url(https://i.ibb.co/GRbH3qY/3d-electric-car-building.jpg)",

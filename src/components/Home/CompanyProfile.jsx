@@ -1,22 +1,24 @@
+import CountUp from "react-countup";
+
 const CompanyProfile = () => {
   return (
     <section className="bg-custom-red-400 px-8 py-12">
       <div className="max-w-[1200px] mx-auto">
         <div className="text-center flex flex-col space-y-3">
           <p className="text-xs font-semibold uppercase tracking-widest text-whiteopacity-70 mb-2">
-            #1 PLATFORM FOR JOBS
+            #1 PLATFORM FOR Properties
           </p>
           {/* Text content for the banner */}
           <div className=" text-white mb-4">
             <h2 className="lg:text-5xl sm:text-4xl max-w-[800px] mx-auto text-3xl font-bold">
-              Find Your <span className="text-[#EE7236]">Dream Job</span> That
-              Suit With Exciting Opportunities
+              Find Your <span className="text-custom-main">Dream Home</span>{" "}
+              That Suit With Exciting Opportunities
             </h2>
             <p className="sm:text-base text-sm text-whiteopacity-70 mb-8 mt-5">
-              Embark on a journey towards your dream career, yousr ultimate
-              job-finding companion! We have curated
-              <br />a platform that connects talented individuals with exciting
-              opportunities.
+              Embark on a journey towards your dream home, yours ultimate
+              property finding companion!
+              <br /> We have curated a platform that connects everyone with
+              exciting opportunities.
             </p>
             {/* Explore and input field */}
             <div className="flex justify-center items-center sm:flex-row flex-col space-x-4 sm:space-y-0  space-y-3 mb-12">
@@ -61,12 +63,13 @@ const CompanyProfile = () => {
               </svg>
               <div className="relative rounded-md shadow-sm lg:w-[400px] sm:w-[300px] w-full ">
                 <input
-                  className="flex h-10 w-full rounded-md border  px-3 py-2 text-sm focus:outline-none"
-                  placeholder="Job title, Salary, or Companies..."
+                  type="text"
+                  className="flex h-10 w-full rounded-md border  px-3 py-2 text-sm focus:outline-none text-custom-main"
+                  placeholder="title, property, or Location..."
                 />
               </div>
-              <button className="inline-flex items-center justify-center  sm:w-auto w-full rounded-md text-sm font-medium  disabled:opacity-50 hover:bg-black/90 h-10 px-4 py-2 bg-black text-white">
-                Explore Now
+              <button className="inline-flex items-center justify-center  sm:w-auto w-full rounded-md text-sm font-medium  disabled:opacity-50 hover:bg-custom-red-500 h-10 px-4 py-2 bg-black text-white">
+                Search
               </button>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -121,10 +124,17 @@ const CompanyProfile = () => {
               </g>
             </svg>
             <p className="font-semibold md:text-lg sm:text-base text-sm text-whitemt-2">
-              Live Jobs
+              Live Property
             </p>
             <p className="md:text-2xl sm:text-xl text-base font-bold text-black">
-              30000+
+              <CountUp
+                end={30000}
+                duration={5}
+                delay={1000}
+                enableScrollSpy
+                scrollSpyOnce={false}
+              />
+              +
             </p>
           </div>
           <div>
@@ -145,10 +155,17 @@ const CompanyProfile = () => {
               <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />{" "}
             </svg>
             <p className="font-semibold md:text-lg sm:text-base text-sm text-whitemt-2">
-              Daily Job Post
+              Daily Property Post
             </p>
             <p className="md:text-2xl sm:text-xl text-base font-bold text-black">
-              5000+
+              <CountUp
+                end={5000}
+                duration={5}
+                delay={1000}
+                enableScrollSpy
+                scrollSpyOnce={false}
+              />
+              +
             </p>
           </div>
           <div>
@@ -170,10 +187,17 @@ const CompanyProfile = () => {
               <polyline points="16 11 18 13 22 9" />{" "}
             </svg>
             <p className="font-semibold md:text-lg sm:text-base text-sm text-whitemt-2">
-              People Get Hired
+              Customer
             </p>
             <p className="md:text-2xl sm:text-xl text-base font-bold text-black">
-              25000+
+              <CountUp
+                end={250000}
+                duration={5}
+                delay={1000}
+                enableScrollSpy
+                scrollSpyOnce={false}
+              />
+              +
             </p>
           </div>
           <div>
@@ -197,15 +221,22 @@ const CompanyProfile = () => {
               Companies
             </p>
             <p className="md:text-2xl sm:text-xl text-base font-bold text-black">
-              1000+
+              <CountUp
+                end={1000}
+                duration={5}
+                delay={1000}
+                enableScrollSpy
+                scrollSpyOnce={false}
+              />
+              +
             </p>
           </div>
         </div>
         {/* Some disclaimer for the banner */}
         <div className="flex justify-center mt-8 items-center flex-wrap gap-4 space-x-2">
-          <p className="text-xs font-semibold">Product Manager</p>
-          <p className="text-xs font-semibold">Frontend Dev</p>
-          <p className=" text-xs font-semibold">Data Analyst</p>
+          <p className="text-xs font-semibold">Develop</p>
+          <p className="text-xs font-semibold">Rent</p>
+          <p className=" text-xs font-semibold">Buy</p>
         </div>
       </div>
     </section>
