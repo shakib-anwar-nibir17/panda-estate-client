@@ -19,7 +19,7 @@ const LoginForm = ({ register, setRegister }) => {
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.id]: e.target.value,
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -73,8 +73,8 @@ const LoginForm = ({ register, setRegister }) => {
           Email
         </label>
         <input
-          id="email"
-          type="u_email"
+          name="email"
+          type="email"
           onChange={handleChange}
           placeholder="example@example.com"
           className="p-3 block w-full outline-none border rounded-md invalid:border-black valid:border-blue-700"
@@ -84,7 +84,7 @@ const LoginForm = ({ register, setRegister }) => {
           Password
         </label>
         <input
-          id="password"
+          name="password"
           type="password"
           onChange={handleChange}
           placeholder=".............."
