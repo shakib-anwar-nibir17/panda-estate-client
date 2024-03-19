@@ -68,7 +68,6 @@ const UserListingPage = () => {
                 <Link to={`/listing/${listing._id}`}>
                   <img
                     src={listing.imageUrls[0]}
-                    loading="lazy"
                     alt="listing"
                     className="rounded-t-md"
                   />
