@@ -12,7 +12,9 @@ const UserListingPage = () => {
     const fetchUserListings = async () => {
       try {
         setShowListingsError(false);
-        const res = await fetch(`/api/user/listings/${currentUser._id}`);
+        const res = await fetch(
+          `http://localhost:3000/api/user/listings/${currentUser._id}`
+        );
         const data = await res.json();
         if (data.success === false) {
           setShowListingsError(true);
@@ -29,9 +31,12 @@ const UserListingPage = () => {
 
   const handleListingDelete = async (listingId) => {
     try {
-      const res = await fetch(`/api/listing/delete/${listingId}`, {
-        method: "DELETE",
-      });
+      const res = await fetch(
+        `http://localhost:3000/api/listing/delete/${listingId}`,
+        {
+          method: "DELETE",
+        }
+      );
       const data = await res.json();
       if (data.success === false) {
         console.log(data.message);

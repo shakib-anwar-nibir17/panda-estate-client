@@ -51,7 +51,9 @@ export default function SearchPage() {
     const fetchListings = async () => {
       setLoading(true);
       const searchQuery = urlParams.toString();
-      const res = await fetch(`/api/listing/get?${searchQuery}`);
+      const res = await fetch(
+        `http://localhost:3000/api/listing/get?${searchQuery}`
+      );
       console.log(res);
       const data = await res.json();
       setListings(data);
