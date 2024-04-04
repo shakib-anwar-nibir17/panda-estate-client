@@ -42,11 +42,10 @@ const RegisterForm = ({ register, setRegister }) => {
       setLoading(false);
       setError(null);
       Swal.fire({
-        title: "Registration Success",
+        title: "Registration Success!! Login Again to Access. Thank You!!",
         text: "Welcome to Panda Estate",
         icon: "success",
       });
-      navigate("/");
     } catch (error) {
       setLoading(false);
       Swal.fire({
