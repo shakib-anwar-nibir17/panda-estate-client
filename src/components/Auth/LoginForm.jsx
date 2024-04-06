@@ -9,6 +9,7 @@ import {
   signInStart,
   signInSuccess,
 } from "../../redux/user/userSlice";
+import { api } from "../../utils/baseUrl";
 import GoogleSignIn from "../common/GoogleSignIn";
 
 const LoginForm = ({ register, setRegister }) => {
@@ -27,7 +28,7 @@ const LoginForm = ({ register, setRegister }) => {
     e.preventDefault();
     try {
       dispatch(signInStart());
-      const res = await fetch("http://localhost:3000/api/auth/signin", {
+      const res = await fetch(`${api}/api/auth/signin`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

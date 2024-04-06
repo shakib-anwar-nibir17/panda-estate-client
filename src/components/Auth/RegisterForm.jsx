@@ -1,12 +1,13 @@
-/* eslint-disable no-unused-vars */
 import PropTypes from "prop-types";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import { api } from "../../utils/baseUrl";
 import GoogleSignIn from "../common/GoogleSignIn";
+
 const RegisterForm = ({ register, setRegister }) => {
-  const navigate = useNavigate();
   const [formData, setFormData] = useState({});
+  // eslint-disable-next-line no-unused-vars
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const handleChange = (e) => {
@@ -20,7 +21,7 @@ const RegisterForm = ({ register, setRegister }) => {
     e.preventDefault();
     try {
       setLoading(true);
-      const res = await fetch("http://localhost:3000/api/auth/signup", {
+      const res = await fetch(`${api}/api/auth/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -46,6 +47,7 @@ const RegisterForm = ({ register, setRegister }) => {
         text: "Welcome to Panda Estate",
         icon: "success",
       });
+      setRegister(!register);
     } catch (error) {
       setLoading(false);
       Swal.fire({
@@ -56,7 +58,9 @@ const RegisterForm = ({ register, setRegister }) => {
       setError(error.message);
     }
   };
+
   console.log(formData);
+
   return (
     <form
       onSubmit={handleRegister}
