@@ -6,7 +6,10 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "http://localhost:3000",
+        target: [
+          "http://localhost:3000",
+          "https://panda-estate-server.vercel.app",
+        ],
         secure: false,
       },
     },
