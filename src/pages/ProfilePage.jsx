@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { Link } from "react-router-dom";
 import app from "../firebase/firebase.config";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 import {
   deleteUserFailure,
   deleteUserStart,
@@ -19,7 +20,9 @@ import {
   updateUserStart,
   updateUserSuccess,
 } from "../redux/user/userSlice";
+
 export default function ProfilePage() {
+  const axiosSecure = useAxiosSecure();
   const fileRef = useRef(null);
   const { currentUser, loading, error } = useSelector((state) => state.user);
   const [file, setFile] = useState(undefined);
@@ -70,18 +73,22 @@ export default function ProfilePage() {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
+  // user update logic
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       dispatch(updateUserStart());
-      const res = await fetch(`/api/user/update/${currentUser._id}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-      const data = await res.json();
+      const res = await axiosSecure.post(
+        `/api/user/update/${currentUser._id}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(res);
+      const data = res.data;
       if (data.success === false) {
         dispatch(updateUserFailure(data.message));
         return;
@@ -94,13 +101,14 @@ export default function ProfilePage() {
     }
   };
 
+  // user delete logic
   const handleDeleteUser = async () => {
     try {
       dispatch(deleteUserStart());
-      const res = await fetch(`/api/user/delete/${currentUser._id}`, {
-        method: "DELETE",
-      });
-      const data = await res.json();
+      const res = await axiosSecure.delete(
+        `http://localhost:3000/api/user/delete/${currentUser._id}`
+      );
+      const data = res.data;
       if (data.success === false) {
         dispatch(deleteUserFailure(data.message));
         return;
@@ -114,7 +122,7 @@ export default function ProfilePage() {
   const handleSignOut = async () => {
     try {
       dispatch(signOutUserStart());
-      const res = await fetch("/api/auth/signout");
+      const res = await fetch("http://localhost:3000/api/auth/signout");
       const data = await res.json();
       if (data.success === false) {
         dispatch(deleteUserFailure(data.message));

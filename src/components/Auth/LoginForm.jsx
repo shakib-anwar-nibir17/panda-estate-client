@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 import {
   signInFailure,
   signInStart,
@@ -12,6 +13,7 @@ import {
 import GoogleSignIn from "../common/GoogleSignIn";
 
 const LoginForm = ({ register, setRegister }) => {
+  const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({});
   const { loading, error } = useSelector((state) => state.user);
@@ -27,15 +29,13 @@ const LoginForm = ({ register, setRegister }) => {
     e.preventDefault();
     try {
       dispatch(signInStart());
-      const res = await fetch("/api/auth/signin", {
-        method: "POST",
+      const res = await axiosSecure.post("/api/auth/signin", formData, {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
       });
-      const data = await res.json();
-      console.log(data);
+      console.log(res);
+      const data = res.data;
       if (data.success === false) {
         dispatch(signInFailure(data.message));
         Swal.fire({

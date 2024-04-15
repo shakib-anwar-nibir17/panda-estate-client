@@ -3,8 +3,10 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 import GoogleSignIn from "../common/GoogleSignIn";
 const RegisterForm = ({ register, setRegister }) => {
+  const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({});
   const [error, setError] = useState(null);
@@ -20,15 +22,13 @@ const RegisterForm = ({ register, setRegister }) => {
     e.preventDefault();
     try {
       setLoading(true);
-      const res = await fetch("/api/auth/signup", {
-        method: "POST",
+      const res = await axiosSecure.post("/api/auth/signup", formData, {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
       });
-      const data = await res.json();
-      console.log(data);
+      console.log(res);
+      const data = res.data;
       if (data.success === false) {
         setLoading(false);
         setError(data.message);
@@ -46,7 +46,6 @@ const RegisterForm = ({ register, setRegister }) => {
         text: "Welcome to Panda Estate",
         icon: "success",
       });
-      navigate("/");
     } catch (error) {
       setLoading(false);
       Swal.fire({
