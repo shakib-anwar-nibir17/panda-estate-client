@@ -3,42 +3,54 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import app from "../../firebase/firebase.config";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { signInSuccess } from "../../redux/user/userSlice";
 import GoogleSvg from "./GoogleSvg";
 
 const GoogleSignIn = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure();
+
   const handleGoogleClick = async () => {
     try {
       const provider = new GoogleAuthProvider();
       const auth = getAuth(app);
 
       const result = await signInWithPopup(auth, provider);
-
-      const res = await fetch("/api/auth/google", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
+      console.log(result.user.photoURL);
+      const response = await axiosSecure.post(
+        "/api/auth/google",
+        {
           name: result.user.displayName,
           email: result.user.email,
           photo: result.user.photoURL,
-        }),
-      });
-      const data = await res.json();
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      const data = response.data;
       dispatch(signInSuccess(data));
       Swal.fire({
         title: "Google Login Successful",
-        text: "Welcome to panda estate",
+        text: "Welcome to Panda Estate",
         icon: "success",
       });
       navigate("/");
     } catch (error) {
-      console.log("could not sign in with google", error);
+      console.log("Could not sign in with Google", error);
+      Swal.fire({
+        title: "Google Login Error",
+        text: "Could not sign in with Google. Please try again.",
+        icon: "error",
+      });
     }
   };
+
   return (
     <button
       onClick={handleGoogleClick}

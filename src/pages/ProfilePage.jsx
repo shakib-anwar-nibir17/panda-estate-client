@@ -106,7 +106,7 @@ export default function ProfilePage() {
     try {
       dispatch(deleteUserStart());
       const res = await axiosSecure.delete(
-        `http://localhost:3000/api/user/delete/${currentUser._id}`
+        `/api/user/delete/${currentUser._id}`
       );
       const data = res.data;
       if (data.success === false) {
@@ -122,8 +122,9 @@ export default function ProfilePage() {
   const handleSignOut = async () => {
     try {
       dispatch(signOutUserStart());
-      const res = await fetch("http://localhost:3000/api/auth/signout");
-      const data = await res.json();
+      const res = await axiosSecure.get("/api/auth/signout");
+      console.log(res);
+      const data = await res.data;
       if (data.success === false) {
         dispatch(deleteUserFailure(data.message));
         return;
