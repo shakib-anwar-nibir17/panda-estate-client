@@ -2,7 +2,7 @@ import axios from "axios";
 
 const useAxiosSecure = () => {
   const axiosSecure = axios.create({
-    baseURL: "panda-estate-server.vercel.app",
+    baseURL: "https://panda-server-five.vercel.app",
     withCredentials: true,
   });
 
