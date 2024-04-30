@@ -11,8 +11,10 @@ import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import app from "../firebase/firebase.config";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const UpdateListingPage = () => {
+  const axiosSecure = useAxiosSecure();
   const { currentUser } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const params = useParams();
@@ -39,13 +41,17 @@ const UpdateListingPage = () => {
   useEffect(() => {
     const fetchListing = async () => {
       const listingId = params.listingId;
-      const res = await fetch(`/api/listing/get/${listingId}`);
-      const data = await res.json();
-      if (data.success === false) {
-        console.log(data.message);
-        return;
+      try {
+        const res = await axiosSecure.get(`/api/listing/get/${listingId}`); // Using Axios to make a GET request
+        const data = res.data;
+        if (data.success === false) {
+          console.log(data.message);
+          return;
+        }
+        setFormData(data);
+      } catch (error) {
+        console.log(error.message);
       }
-      setFormData(data);
     };
 
     fetchListing();
@@ -152,17 +158,19 @@ const UpdateListingPage = () => {
         return setError("Discount price must be lower than regular price");
       setLoading(true);
       setError(false);
-      const res = await fetch(`/api/listing/update/${params.listingId}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
+      const res = await axiosSecure.post(
+        `/api/listing/update/${params.listingId}`,
+        {
           ...formData,
           userRef: currentUser._id,
-        }),
-      });
-      const data = await res.json();
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const data = res.data;
       setLoading(false);
       if (data.success === false) {
         setError(data.message);
