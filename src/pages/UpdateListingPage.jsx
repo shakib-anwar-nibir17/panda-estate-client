@@ -42,7 +42,7 @@ const UpdateListingPage = () => {
     const fetchListing = async () => {
       const listingId = params.listingId;
       try {
-        const res = await axiosSecure.get(`/api/listing/get/${listingId}`); // Using Axios to make a GET request
+        const res = await axiosSecure.get(`/api/listing/get/${listingId}`);
         const data = res.data;
         if (data.success === false) {
           console.log(data.message);

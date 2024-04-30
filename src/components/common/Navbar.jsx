@@ -81,7 +81,7 @@ const Navbar = () => {
             {currentUser ? (
               <li className="flex items-center">
                 <NavLink>
-                  <button className="p-2 text-custom-main bg-white hover:bg-custom-red-500 hover:text-white rounded-lg">
+                  <button className="p-2 text-custom-main bg-white hover:bg-custom-red-500 hover:text-white rounded-lg hidden">
                     Logout
                   </button>
                 </NavLink>
