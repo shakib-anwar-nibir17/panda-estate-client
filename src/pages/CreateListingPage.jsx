@@ -10,8 +10,10 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import app from "../firebase/firebase.config";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 export default function CreateListingPage() {
+  const axiosSecure = useAxiosSecure();
   const { currentUser } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const [files, setFiles] = useState([]);
@@ -130,26 +132,28 @@ export default function CreateListingPage() {
     e.preventDefault();
     try {
       if (formData.imageUrls.length < 1)
-        return setError("You must upload at least one image");
+        throw new Error("You must upload at least one image");
       if (+formData.regularPrice < +formData.discountPrice)
-        return setError("Discount price must be lower than regular price");
+        throw new Error("Discount price must be lower than regular price");
       setLoading(true);
       setError(false);
-      const res = await fetch("http://localhost:3000/api/listing/create", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
+      const res = await axiosSecure.post(
+        "http://localhost:3000/api/listing/create",
+        {
           ...formData,
           userRef: currentUser._id,
-        }),
-      });
-      const data = await res.json();
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const data = res.data; // No need to use res.json() with Axios
       console.log(data);
       setLoading(false);
       if (data.success === false) {
-        setError(data.message);
+        throw new Error(data.message);
       }
       Swal.fire({
         title: "Success",
@@ -161,6 +165,7 @@ export default function CreateListingPage() {
       setLoading(false);
     }
   };
+
   return (
     <main className="p-3 max-w-4xl mx-auto">
       <h1 className="text-3xl font-semibold text-center my-7">

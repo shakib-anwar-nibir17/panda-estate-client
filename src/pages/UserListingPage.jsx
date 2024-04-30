@@ -1,9 +1,12 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 import { dateConversion } from "../utils/dateConversion";
 
 const UserListingPage = () => {
+  const axiosSecure = useAxiosSecure();
   const { currentUser } = useSelector((state) => state.user);
   const [showListingsError, setShowListingsError] = useState(false);
   const [userListings, setUserListings] = useState([]);
@@ -12,8 +15,10 @@ const UserListingPage = () => {
     const fetchUserListings = async () => {
       try {
         setShowListingsError(false);
-        const res = await fetch(`/api/user/listings/${currentUser._id}`);
-        const data = await res.json();
+        const res = await axiosSecure.get(
+          `/api/user/listings/${currentUser._id}`
+        );
+        const data = res.data;
         if (data.success === false) {
           setShowListingsError(true);
           return;
@@ -29,10 +34,8 @@ const UserListingPage = () => {
 
   const handleListingDelete = async (listingId) => {
     try {
-      const res = await fetch(`/api/listing/delete/${listingId}`, {
-        method: "DELETE",
-      });
-      const data = await res.json();
+      const res = await axiosSecure.delete(`/api/listing/delete/${listingId}`); // Using Axios to make a DELETE request
+      const data = res.data;
       if (data.success === false) {
         console.log(data.message);
         return;
@@ -45,8 +48,6 @@ const UserListingPage = () => {
       console.log(error.message);
     }
   };
-
-  console.log(userListings);
 
   return (
     <div className="min-h-screen flex items-center justify-center">
