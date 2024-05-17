@@ -4,12 +4,13 @@ import AboutPage from "./pages/AboutPage";
 import AuthPage from "./pages/AuthPage";
 import CreateListingPage from "./pages/CreateListingPage";
 import HomePage from "./pages/HomePage";
+import ListingPage from "./pages/ListingPage";
 import ProfilePage from "./pages/ProfilePage";
+import SearchPage from "./pages/SearchPage";
 import UpdateListingPage from "./pages/UpdateListingPage";
 import UserListingPage from "./pages/UserListingPage";
 import PrivateRoute from "./routes/PrivateRoute";
 import PublicRoute from "./routes/PublicRoute";
-import ListingPage from "./pages/ListingPage";
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
         <Route element={<PublicRoute />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
-          <Route path="/authentication" element={<AuthPage />} />
+          <Route path="/search" element={<SearchPage />} />
           <Route path="/listing/:listingId" element={<ListingPage />} />
         </Route>
         <Route element={<DashboardLayout />}>
@@ -32,6 +33,7 @@ function App() {
             />
           </Route>
         </Route>
+        <Route path="/authentication" element={<AuthPage />} />
       </Routes>
     </BrowserRouter>
   );

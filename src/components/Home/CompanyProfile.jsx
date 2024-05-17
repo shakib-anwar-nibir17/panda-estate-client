@@ -1,4 +1,5 @@
 import CountUp from "react-countup";
+import SearchHeader from "./SearchHeader";
 
 const CompanyProfile = () => {
   return (
@@ -61,16 +62,7 @@ const CompanyProfile = () => {
                   />{" "}
                 </g>
               </svg>
-              <div className="relative rounded-md shadow-sm lg:w-[400px] sm:w-[300px] w-full ">
-                <input
-                  type="text"
-                  className="flex h-10 w-full rounded-md border  px-3 py-2 text-sm focus:outline-none text-custom-main"
-                  placeholder="title, property, or Location..."
-                />
-              </div>
-              <button className="inline-flex items-center justify-center  sm:w-auto w-full rounded-md text-sm font-medium  disabled:opacity-50 hover:bg-custom-red-500 h-10 px-4 py-2 bg-black text-white">
-                Search
-              </button>
+              <SearchHeader />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width={24}

@@ -50,7 +50,7 @@ const UserListingPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
+    <div className="min-h-screen flex items-center justify-center mb-40">
       <p className="text-red-700 mt-5">
         {showListingsError ? "Error showing listings" : ""}
       </p>
